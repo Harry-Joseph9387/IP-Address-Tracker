@@ -12,9 +12,16 @@ const Main = () => {
     const[data,setData]=useState("")
     // const position=[51.505, -0.09]
     const fetcher=async ()=>{
-        const res=await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_API_KEY}&ipAddress=${ipAddress}`)
-        const x=await res.json()
-        setData(x)
+        let ipv4 = /(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])/;
+        let ipv6 = /((([0-9a-fA-F]){1,4})\:){7}([0-9a-fA-F]){1,4}/;
+        if(ipAddress.match(ipv4) || ipAddress.match(ipv6)){
+            const res=await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_API_KEY}&ipAddress=${ipAddress}`)
+            const x=await res.json()
+            setData(x)
+        }
+        else{
+            setIpAddress("8.8.8.8")
+        }
     }
     useEffect(()=>{
         fetcher()
