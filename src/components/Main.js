@@ -14,7 +14,6 @@ const Main = () => {
     const fetcher=async ()=>{
         const res=await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_API_KEY}&ipAddress=${ipAddress}`)
         const x=await res.json()
-        console.log(x)
         setData(x)
     }
     useEffect(()=>{
